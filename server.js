@@ -48,9 +48,14 @@ server.get('/', (_req, res) => {
 })
 
 server.get('/:id', (req, res) => {
-  const {id } = req?.params;
-  if (!id) res.status(404).send({message: 'Employee Not Found'});
-  const specificEmpl = team.find(empl => empl.id === req?.params?.id)
+  const { id } = req.params;
+  const specificEmpl = team.find(empl => empl.id === Number(id));
+
+  if (!specificEmpl) {
+    return res.status(404).send({ message: 'Employee Not Found' });
+  }
+
+  res.send(specificEmpl);
 })
 
 
